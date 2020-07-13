@@ -13,9 +13,9 @@ namespace Hex_Editor
             foreach (var h in a)
             {
                 int decval = int.Parse(h, System.Globalization.NumberStyles.HexNumber);
-                if ((decval >= 0 && decval <= 31)|| (decval >= 127 && decval <= 129) || (decval >= 141 && decval <= 144)||(decval >= 157 && decval <= 158)||decval == 173)
+                if ((decval >= 0 && decval <= 31) || (decval >= 127 && decval <= 129) || (decval >= 141 && decval <= 144) || (decval >= 157 && decval <= 158) || decval == 173)
                     decval = 46;
-                if(counter % 16==0 && counter!=0)
+                if (counter % 16 == 0 && counter != 0)
                     sb.Append(Environment.NewLine);
                 sb.Append((char)decval);
                 counter++;
@@ -71,7 +71,5 @@ namespace Hex_Editor
 
             return string.Empty;
         }
-
-
     }
 }

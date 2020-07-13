@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.IO.MemoryMappedFiles;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Hex_Editor
 {
-    class FileWorker
+    internal class FileWorker
     {
         public Hex ReadReader(string name)
         {
@@ -25,7 +21,7 @@ namespace Hex_Editor
                 if (i % 16 == 0)
                     hex.display += toAdd + Environment.NewLine;
                 else
-                    hex.display += toAdd +" ";
+                    hex.display += toAdd + " ";
             }
             return hex;
         }
@@ -40,7 +36,7 @@ namespace Hex_Editor
             {
                 hex.hex += string.Format("{0:X2}", hexIn);
                 if (i % 16 == 0)
-                    hex.display+= string.Format("{0:X2}" + Environment.NewLine, hexIn);
+                    hex.display += string.Format("{0:X2}" + Environment.NewLine, hexIn);
                 else
                     hex.display += string.Format("{0:X2} ", hexIn);
             }
@@ -52,17 +48,17 @@ namespace Hex_Editor
         {
             FileStream fs = new FileStream(name, FileMode.Open);
             int hexIn;
-            string hex ="";
+            string hex = "";
 
             for (int i = 1; (hexIn = fs.ReadByte()) != -1; i++)
             {
-                if(i % 16 == 0)
-                    hex += string.Format("{0:X2}"+Environment.NewLine, hexIn);
+                if (i % 16 == 0)
+                    hex += string.Format("{0:X2}" + Environment.NewLine, hexIn);
                 else
                     hex += string.Format("{0:X2} ", hexIn);
             }
             fs.Close();
-            
+
             return hex;
         }
 
@@ -94,7 +90,7 @@ namespace Hex_Editor
                     file.Close();
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.Message);
             }

@@ -1,9 +1,7 @@
-﻿using Hex_Editor.Classes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
@@ -13,7 +11,7 @@ namespace Hex_Editor
     {
         private readonly FileWorker fileWorker = new FileWorker();
 
-       // private string Hex;
+        // private string Hex;
 
         private string fileName;
 
@@ -34,6 +32,7 @@ namespace Hex_Editor
             richTBAscii.Enabled = false;
             vScrollBar1.Enabled = false;
         }
+
         //Disable buttons for reverting changes if history is empty
         private void History_OnClear(object sender, EventArgs e)
         {
@@ -41,6 +40,7 @@ namespace Hex_Editor
             btnForward.Enabled = false;
             btnRevert.Enabled = false;
         }
+
         //Remove all instructions from history if we reverted any changes
         private void History_OnAdd(object sender, EventArgs e)
         {
@@ -67,11 +67,12 @@ namespace Hex_Editor
             labelTop.Text = topBorder;
             SetupBorderLeft(0);
         }
+
         //topline determines starting offset at top
         private void SetupBorderLeft(int topline)
         {
             string leftBorder = "";
-            for (int i = topline; i < topline+23; i++)
+            for (int i = topline; i < topline + 23; i++)
             {
                 leftBorder += (i * 16).ToString("X") + Environment.NewLine;
             }
@@ -95,6 +96,7 @@ namespace Hex_Editor
 
         private bool eatEventMain = false; //if true richTBMain does not see selectionChanged
         private bool eatEventAscii = false;//if true richTBAscii does not see selectionChanged
+
         //Select representation of hex in ascii
         private void richTBMain_SelectionChanged(object sender, EventArgs e)
         {
@@ -200,7 +202,7 @@ namespace Hex_Editor
                 if (pos >= richTBMain.Text.Length)
                 {
                     bool newline = (isTextAtBorder(pos));
-                    
+
                     ChangeText(currentChar.ToString(), highlightColor, pos, ref richTBMain, newline);
                     PatchInstruction toadd = new PatchInstruction
                     {
@@ -295,7 +297,7 @@ namespace Hex_Editor
                 box.SelectionColor = color;
                 if (box == richTBMain)
                 {
-                    if(isHistory)
+                    if (isHistory)
                     {
                         if (newline)
                             box.AppendText(Environment.NewLine + text);
@@ -406,8 +408,8 @@ namespace Hex_Editor
                         ChangeText(currentChar.ToString(), highlightColor, pos + 1, ref richTBAscii, true);
                         toAdd.oldHex = richTBMain.Text.Substring((pos + 1 - richTBAscii.GetLineFromCharIndex(pos)) * 3, 2);
                         AsciiChanged(pos + 1);
-                        toAdd.offset = (pos+1 - richTBAscii.GetLineFromCharIndex(pos));
-                        toAdd.newHex = richTBMain.Text.Substring((pos+1 - richTBAscii.GetLineFromCharIndex(pos)) * 3, 2);
+                        toAdd.offset = (pos + 1 - richTBAscii.GetLineFromCharIndex(pos));
+                        toAdd.newHex = richTBMain.Text.Substring((pos + 1 - richTBAscii.GetLineFromCharIndex(pos)) * 3, 2);
                         history.Add(toAdd);
                         e.Handled = true;
                         richTBAscii.SelectionStart = pos + 2;
@@ -417,7 +419,7 @@ namespace Hex_Editor
                         ChangeText(currentChar.ToString(), highlightColor, pos, ref richTBAscii);
                         toAdd.oldHex = richTBMain.Text.Substring((pos - richTBAscii.GetLineFromCharIndex(pos)) * 3, 2);
                         AsciiChanged(pos);
-                        
+
                         toAdd.newHex = richTBMain.Text.Substring((pos - richTBAscii.GetLineFromCharIndex(pos)) * 3, 2);
                         history.Add(toAdd);
                         e.Handled = true;
@@ -453,12 +455,11 @@ namespace Hex_Editor
         {
             openFDialog.ShowDialog();
             fileName = Path.GetFileName(openFDialog.FileName);
-            if(!string.IsNullOrEmpty(fileName))
+            if (!string.IsNullOrEmpty(fileName))
             {
                 ReadFile();
                 SetupBorders();
             }
-            
         }
 
         private void ReadFile()
@@ -469,11 +470,11 @@ namespace Hex_Editor
             richTBMain.Text = BitConverter.ToString(data).Replace("-", " ");
             richTBAscii.Text = Converter.from_hex(BitConverter.ToString(data));
             history.Clear();
-            vScrollBar1.Maximum = richTBAscii.Lines.Length-1;
+            vScrollBar1.Maximum = richTBAscii.Lines.Length - 1;
             breakFileToolStripMenuItem.Enabled = true;
             applyPatchToolStripMenuItem.Enabled = true;
             richTBMain.Enabled = true;
-            richTBAscii.Enabled = true ;
+            richTBAscii.Enabled = true;
             vScrollBar1.Enabled = true;
         }
 
@@ -503,7 +504,7 @@ namespace Hex_Editor
         private void ApplyPatch(Patch patch)
         {
             Stack<string> errors = new Stack<string>();
-            int maxOffset = richTBMain.Text.Length/3;
+            int maxOffset = richTBMain.Text.Length / 3;
             while (patch.instructions.Count > 0)
             {
                 var instruc = patch.instructions.Pop();
@@ -525,7 +526,7 @@ namespace Hex_Editor
                         newHex = instruc.newHex
                     };
                     history.Add(toAdd);
-                    
+
                     ChangeText(instruc.newHex, Color.Red, offset, ref richTBMain);
 
                     HexChanged(offset);
@@ -554,6 +555,7 @@ namespace Hex_Editor
         {
             //richTBMain.Text = FormatHex(Hex);
         }
+
         [Obsolete("Use ChangeText instead")]
         private void ChangeHex(int pos, string hex, Color color, bool isAtRichbox = false)
         {
@@ -629,8 +631,6 @@ namespace Hex_Editor
             }
         }
 
-
-
         private void SaveFile()
         {
             ResetColor();
@@ -664,10 +664,7 @@ namespace Hex_Editor
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFile();
-            
         }
-
-
 
         private void btnRevert_Click(object sender, EventArgs e)
         {
@@ -681,20 +678,20 @@ namespace Hex_Editor
             if (string.IsNullOrEmpty(inst.oldHex))
             {
                 bool border = isTextAtBorder(GetBlockStart(pos));
-                RemoveHex(pos-1, border);
+                RemoveHex(pos - 1, border);
             }
             else
             {
                 bool occ = false;
-                for(int i =0; i<currentInst-1; i++)
+                for (int i = 0; i < currentInst - 1; i++)
                 {
-                    if(history[i].offset == inst.offset)
+                    if (history[i].offset == inst.offset)
                     {
                         occ = true;
                         break;
                     }
                 }
-                if(occ)
+                if (occ)
                     ChangeText(inst.oldHex, Color.Red, pos, ref richTBMain);
                 else
                     ChangeText(inst.oldHex, Color.Black, pos, ref richTBMain);
@@ -708,13 +705,14 @@ namespace Hex_Editor
             if (isBorder)
                 richTBAscii.Text = richTBAscii.Text.Remove(richTBAscii.Text.Length - 2);
             else
-                richTBAscii.Text = richTBAscii.Text.Remove(richTBAscii.Text.Length-1);
+                richTBAscii.Text = richTBAscii.Text.Remove(richTBAscii.Text.Length - 1);
         }
 
         private void btnForward_Click(object sender, EventArgs e)
         {
             HistoryForward();
         }
+
         private void HistoryForward()
         {
             btnRevert.Enabled = true;
@@ -725,7 +723,7 @@ namespace Hex_Editor
             if (string.IsNullOrEmpty(inst.oldHex))
             {
                 bool newline = (isTextAtBorder(pos - 1));
-                ChangeText(inst.newHex, Color.Red, pos - 1, ref richTBMain, false, true); 
+                ChangeText(inst.newHex, Color.Red, pos - 1, ref richTBMain, false, true);
                 HexAdded(newline);
             }
             else
@@ -746,6 +744,7 @@ namespace Hex_Editor
             if (currentInst <= 0)
                 btnRevert.Enabled = false;
         }
+
         private void FormMain_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Control && e.KeyCode == Keys.S)
@@ -754,12 +753,12 @@ namespace Hex_Editor
             }
             else if (e.Control && e.KeyCode == Keys.Z)
             {
-                if(btnRevert.Enabled)
+                if (btnRevert.Enabled)
                     HistoryBackward();
             }
             else if (e.Control && e.KeyCode == Keys.Y)
             {
-                if(btnForward.Enabled)
+                if (btnForward.Enabled)
                     HistoryForward();
             }
         }
@@ -770,7 +769,7 @@ namespace Hex_Editor
             eatEventAscii = true;
             eatEventMain = true;
             richTBAscii.Select(position, 0);
-            richTBMain.Select(vScrollBar1.Value*48+1, 0);
+            richTBMain.Select(vScrollBar1.Value * 48 + 1, 0);
             richTBAscii.ScrollToCaret();
             richTBMain.ScrollToCaret();
             SetupBorderLeft(vScrollBar1.Value);

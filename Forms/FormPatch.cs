@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Hex_Editor
@@ -14,6 +7,7 @@ namespace Hex_Editor
     {
         public Patch patch { get; set; }
         public string fileName { get; set; }
+
         public FormPatch()
         {
             InitializeComponent();
