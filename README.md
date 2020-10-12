@@ -5,3 +5,5 @@
 - Edit and add bytes to files 
 - Apply patches from ollydbg 
 - Supports large sizes
+## Screenshot
+![alt text](https://github.com/D3AD-E/HexEditor/blob/master/hex.png?raw=true)
