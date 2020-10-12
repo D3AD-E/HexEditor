@@ -7,3 +7,4 @@
 - Supports large sizes
 ## Screenshot
 ![alt text](https://github.com/D3AD-E/HexEditor/blob/master/hex.png?raw=true)
+![alt text](https://github.com/D3AD-E/HexEditor/blob/master/hex2.png?raw=true)
