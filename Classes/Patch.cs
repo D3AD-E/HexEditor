@@ -8,11 +8,11 @@ namespace Hex_Editor
 {
     public class Patch
     {
-        public Stack<PatchInstruction> instructions;
-        public string fileName;
-        public bool isEmpty()
+        public Stack<PatchInstruction> Instructions;
+        public string FileName { get; set; }
+        public bool IsEmpty()
         {
-            if (instructions.Count == 0 && string.IsNullOrEmpty(fileName))
+            if (Instructions.Count == 0 && string.IsNullOrEmpty(FileName))
                 return true;
             else
                 return false;

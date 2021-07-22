@@ -43,10 +43,10 @@
             this.infoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFDialog = new System.Windows.Forms.OpenFileDialog();
-            this.openFDialogPatch = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialogPatch = new System.Windows.Forms.OpenFileDialog();
             this.btnForward = new System.Windows.Forms.Button();
             this.btnRevert = new System.Windows.Forms.Button();
-            this.vScrollBar1 = new System.Windows.Forms.VScrollBar();
+            this.scrollBar = new System.Windows.Forms.VScrollBar();
             this.btnBrowseChange = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
@@ -54,12 +54,13 @@
             // richTBMain
             // 
             this.richTBMain.BackColor = System.Drawing.Color.White;
-            this.richTBMain.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTBMain.Location = new System.Drawing.Point(80, 99);
+            this.richTBMain.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.richTBMain.Location = new System.Drawing.Point(93, 114);
+            this.richTBMain.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.richTBMain.Name = "richTBMain";
             this.richTBMain.ReadOnly = true;
             this.richTBMain.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTBMain.Size = new System.Drawing.Size(354, 329);
+            this.richTBMain.Size = new System.Drawing.Size(342, 319);
             this.richTBMain.TabIndex = 3;
             this.richTBMain.Text = "";
             this.richTBMain.SelectionChanged += new System.EventHandler(this.richTBMain_SelectionChanged);
@@ -72,8 +73,9 @@
             // labelLeft
             // 
             this.labelLeft.AutoSize = true;
-            this.labelLeft.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelLeft.Location = new System.Drawing.Point(38, 102);
+            this.labelLeft.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelLeft.Location = new System.Drawing.Point(44, 118);
+            this.labelLeft.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelLeft.Name = "labelLeft";
             this.labelLeft.Size = new System.Drawing.Size(14, 14);
             this.labelLeft.TabIndex = 4;
@@ -82,8 +84,9 @@
             // labelTop
             // 
             this.labelTop.AutoSize = true;
-            this.labelTop.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.labelTop.Location = new System.Drawing.Point(24, 72);
+            this.labelTop.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.labelTop.Location = new System.Drawing.Point(30, 83);
+            this.labelTop.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTop.Name = "labelTop";
             this.labelTop.Size = new System.Drawing.Size(63, 14);
             this.labelTop.TabIndex = 5;
@@ -93,12 +96,13 @@
             // 
             this.richTBAscii.BackColor = System.Drawing.Color.White;
             this.richTBAscii.DetectUrls = false;
-            this.richTBAscii.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.richTBAscii.Location = new System.Drawing.Point(473, 99);
+            this.richTBAscii.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.richTBAscii.Location = new System.Drawing.Point(485, 114);
+            this.richTBAscii.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.richTBAscii.Name = "richTBAscii";
             this.richTBAscii.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.richTBAscii.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.richTBAscii.Size = new System.Drawing.Size(148, 329);
+            this.richTBAscii.Size = new System.Drawing.Size(124, 319);
             this.richTBAscii.TabIndex = 6;
             this.richTBAscii.Text = "";
             this.richTBAscii.WordWrap = false;
@@ -116,7 +120,8 @@
             this.infoToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(686, 24);
+            this.menuStrip.Padding = new System.Windows.Forms.Padding(7, 2, 0, 2);
+            this.menuStrip.Size = new System.Drawing.Size(667, 24);
             this.menuStrip.TabIndex = 8;
             this.menuStrip.Text = "menuStrip1";
             this.menuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip1_ItemClicked);
@@ -156,14 +161,14 @@
             // applyPatchToolStripMenuItem
             // 
             this.applyPatchToolStripMenuItem.Name = "applyPatchToolStripMenuItem";
-            this.applyPatchToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.applyPatchToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.applyPatchToolStripMenuItem.Text = "Apply patch";
             this.applyPatchToolStripMenuItem.Click += new System.EventHandler(this.applyPatchToolStripMenuItem_Click);
             // 
             // breakFileToolStripMenuItem
             // 
             this.breakFileToolStripMenuItem.Name = "breakFileToolStripMenuItem";
-            this.breakFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.breakFileToolStripMenuItem.Size = new System.Drawing.Size(138, 22);
             this.breakFileToolStripMenuItem.Text = "Break file";
             this.breakFileToolStripMenuItem.Click += new System.EventHandler(this.breakFileToolStripMenuItem_Click);
             // 
@@ -184,13 +189,14 @@
             // 
             // openFDialogPatch
             // 
-            this.openFDialogPatch.Filter = "Patch files|*.1337";
+            this.openFileDialogPatch.Filter = "Patch files|*.1337";
             // 
             // btnForward
             // 
-            this.btnForward.Location = new System.Drawing.Point(330, 27);
+            this.btnForward.Location = new System.Drawing.Point(248, 30);
+            this.btnForward.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnForward.Name = "btnForward";
-            this.btnForward.Size = new System.Drawing.Size(104, 37);
+            this.btnForward.Size = new System.Drawing.Size(133, 43);
             this.btnForward.TabIndex = 10;
             this.btnForward.Text = "-->";
             this.btnForward.UseVisualStyleBackColor = true;
@@ -198,9 +204,10 @@
             // 
             // btnRevert
             // 
-            this.btnRevert.Location = new System.Drawing.Point(80, 27);
+            this.btnRevert.Location = new System.Drawing.Point(93, 31);
+            this.btnRevert.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnRevert.Name = "btnRevert";
-            this.btnRevert.Size = new System.Drawing.Size(114, 37);
+            this.btnRevert.Size = new System.Drawing.Size(133, 43);
             this.btnRevert.TabIndex = 9;
             this.btnRevert.Text = "<--";
             this.btnRevert.UseVisualStyleBackColor = true;
@@ -208,17 +215,18 @@
             // 
             // vScrollBar1
             // 
-            this.vScrollBar1.Location = new System.Drawing.Point(624, 99);
-            this.vScrollBar1.Name = "vScrollBar1";
-            this.vScrollBar1.Size = new System.Drawing.Size(17, 329);
-            this.vScrollBar1.TabIndex = 11;
-            this.vScrollBar1.Scroll += new System.Windows.Forms.ScrollEventHandler(this.vScrollBar1_Scroll);
+            this.scrollBar.Location = new System.Drawing.Point(613, 114);
+            this.scrollBar.Name = "vScrollBar1";
+            this.scrollBar.Size = new System.Drawing.Size(17, 319);
+            this.scrollBar.TabIndex = 11;
+            this.scrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.scrollBar_Scroll);
             // 
             // btnBrowseChange
             // 
-            this.btnBrowseChange.Location = new System.Drawing.Point(478, 27);
+            this.btnBrowseChange.Location = new System.Drawing.Point(485, 30);
+            this.btnBrowseChange.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.btnBrowseChange.Name = "btnBrowseChange";
-            this.btnBrowseChange.Size = new System.Drawing.Size(142, 36);
+            this.btnBrowseChange.Size = new System.Drawing.Size(166, 42);
             this.btnBrowseChange.TabIndex = 12;
             this.btnBrowseChange.Text = "Browse changes";
             this.btnBrowseChange.UseVisualStyleBackColor = true;
@@ -226,11 +234,11 @@
             // 
             // FormMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 487);
+            this.ClientSize = new System.Drawing.Size(667, 456);
             this.Controls.Add(this.btnBrowseChange);
-            this.Controls.Add(this.vScrollBar1);
+            this.Controls.Add(this.scrollBar);
             this.Controls.Add(this.btnForward);
             this.Controls.Add(this.btnRevert);
             this.Controls.Add(this.richTBAscii);
@@ -242,6 +250,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
+            this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.Name = "FormMain";
             this.Text = "Helium Hex Editor";
@@ -267,11 +276,11 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFDialog;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
-        private System.Windows.Forms.OpenFileDialog openFDialogPatch;
+        private System.Windows.Forms.OpenFileDialog openFileDialogPatch;
         private System.Windows.Forms.ToolStripMenuItem breakFileToolStripMenuItem;
         private System.Windows.Forms.Button btnRevert;
         private System.Windows.Forms.Button btnForward;
-        private System.Windows.Forms.VScrollBar vScrollBar1;
+        private System.Windows.Forms.VScrollBar scrollBar;
         private System.Windows.Forms.Button btnBrowseChange;
     }
 }

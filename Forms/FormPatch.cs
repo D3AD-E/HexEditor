@@ -21,14 +21,14 @@ namespace Hex_Editor
 
         private void FormPatch_Shown(object sender, EventArgs e)
         {
-            label.Text += patch.fileName;
-            foreach (var instruction in patch.instructions)
+            label.Text += patch.FileName;
+            foreach (var instruction in patch.Instructions)
             {
-                string[] toList = { instruction.offset.ToString(), instruction.oldHex, instruction.newHex };
+                string[] toList = { instruction.Offset.ToString(), instruction.OldHex, instruction.NewHex };
                 listView.Items.Add(new ListViewItem(toList));//Undone
             }
 
-            if (fileName != patch.fileName)
+            if (fileName != patch.FileName)
                 labelWarning.Text = "WARNING: Current file and file name found in patch file do not match";
             listView.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize);
         }

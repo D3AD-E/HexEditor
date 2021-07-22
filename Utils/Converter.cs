@@ -5,71 +5,66 @@ namespace Hex_Editor
 {
     internal class Converter
     {
-        public static string from_hex(string s)
+        private static int HexToAsciiPosition(string hex)
         {
-            StringBuilder sb = new StringBuilder();
-            string[] a = s.Split(new char[] { '-' });
-            int counter = 0;
-            foreach (var h in a)
+            if (hex.Length > 2)
             {
-                int decval = int.Parse(h, System.Globalization.NumberStyles.HexNumber);
-                if ((decval >= 0 && decval <= 31) || (decval >= 127 && decval <= 129) || (decval >= 141 && decval <= 144) || (decval >= 157 && decval <= 158) || decval == 173)
-                    decval = 46;
-                if (counter % 16 == 0 && counter != 0)
-                    sb.Append(Environment.NewLine);
-                sb.Append((char)decval);
-                counter++;
+                throw new NotSupportedException("Length of hex representation of single ascii char cannot exceed 2");
             }
-            return sb.ToString();
+            int res = int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
+            if ((res >= 0 && res <= 31) || (res >= 127 && res <= 129) || (res >= 141 && res <= 144) || (res >= 157 && res <= 158) || res == 173)
+                res = 46;
+            return res;
         }
-
-        public static string ConvertHex(string hexString)
+        public static string HexToAscii(string hexString, char? separator)
         {
-            try
+            StringBuilder sb = new();
+            if (separator is null)
             {
-                string ascii = string.Empty;
-
                 for (int i = 0; i < hexString.Length; i += 2)
                 {
-                    String hs = string.Empty;
+                    string hex = hexString.Substring(i, 2);
 
-                    hs = hexString.Substring(i, 2);
-                    //if (hs == "0C" || hs == "0E" || hs == "0F" || hs == "00" || hs == "08" || hs == "09" || hs == "0B" || hs == "0D" || hs == "0A")
-                    //hs = "2E";
+                    int decval = HexToAsciiPosition(hex);
+                    char character = Convert.ToChar(decval);
 
-                    uint decval = System.Convert.ToUInt32(hs, 16);
-                    if ((decval >= 0 && decval <= 31) || (decval >= 127 && decval <= 129) || (decval >= 141 && decval <= 144) || (decval >= 157 && decval <= 158) || decval == 173)
-                        decval = 46;
-                    char character = System.Convert.ToChar(decval);
-
-                    ascii += character;
+                    sb.Append(character);
                 }
 
-                return ascii;
+                return sb.ToString();
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
-
-            return string.Empty;
+            else
+            {
+                string[] hexArray = hexString.Split(new char[] { (char)separator });
+                int counter = 0;
+                foreach (var hexData in hexArray)
+                {
+                    int decval = HexToAsciiPosition(hexData);
+                    if (counter % 16 == 0 && counter != 0)
+                        sb.Append(Environment.NewLine);
+                    sb.Append(Convert.ToChar(decval));
+                    counter++;
+                }
+                return sb.ToString();
+            }
         }
 
-        public static string ConvertAscii(string asciiString)
+        public static string AsciiToHex(string asciiString)
         {
-            try
+
+            string hex = string.Empty;
+
+            foreach (var el in asciiString)
             {
-                string hex = string.Empty;
-
-                foreach (var el in asciiString)
-                {
-                    int value = Convert.ToInt32(el);
-                    // Convert the decimal value to a hexadecimal value in string form.
-                    hex += String.Format("{0:X}", value);
-                }
-
-                return hex;
+                int value = Convert.ToInt32(el);
+                // Convert the decimal value to a hexadecimal value in string form.
+                hex += String.Format("{0:X}", value);
             }
-            catch (Exception ex) { Console.WriteLine(ex.Message); }
 
-            return string.Empty;
+            return hex;
+
+
+
         }
     }
 }

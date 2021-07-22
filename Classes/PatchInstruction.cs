@@ -8,8 +8,8 @@ namespace Hex_Editor
 {
     public class PatchInstruction
     {
-        public int offset;
-        public string oldHex;
-        public string newHex;
+        public int Offset;
+        public string OldHex;
+        public string NewHex;
     }
 }

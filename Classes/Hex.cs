@@ -8,7 +8,7 @@ namespace Hex_Editor
 {
     public class Hex
     {
-        public string hex;
-        public string display;
+        public string Data { get; set; }
+        public string ToDisplay { get; set; }
     }
 }
