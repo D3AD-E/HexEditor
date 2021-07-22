@@ -9,8 +9,6 @@ namespace Hex_Editor
 {
     public partial class FormMain : Form
     {
-        private readonly FileWorker _fileWorker;
-
         private string _fileName;
 
         private int _currentHistoryIndex = 0;
@@ -23,7 +21,6 @@ namespace Hex_Editor
         public FormMain()
         {
             InitializeComponent();
-            _fileWorker = new FileWorker();
             _history = new ObservableList<PatchInstruction>();
             _history.OnAdd += History_OnAdd;
             _history.OnClear += History_OnClear;
@@ -453,28 +450,16 @@ namespace Hex_Editor
             if (!string.IsNullOrEmpty(_fileName))
             {
                 ReadFile();
+                SetupForm();
                 SetupBorders();
                 UpdateTables();
             }
         }
 
-        private void UpdateTables()
+        private void SetupForm()
         {
-            richTBMain.Width = labelTop.Width;
-            richTBMain.Height = labelLeft.Height +2;
-            richTBMain.Update();
-        }
-
-        private void ReadFile()
-        {
-            string src = openFDialog.FileName;
-            var data = File.ReadAllBytes(src);
-            //Hex = BitConverter.ToString(data).Replace("-", string.Empty);
-            string hexData = BitConverter.ToString(data).Replace("-", " ");
-            richTBMain.Text = hexData;
-            richTBAscii.Text = Converter.HexToAscii(hexData, ' ');
             _history.Clear();
-            if(richTBAscii.Lines.Length <=12)
+            if (richTBAscii.Lines.Length <= 12)
             {
                 scrollBar.Enabled = false;
             }
@@ -490,11 +475,27 @@ namespace Hex_Editor
             richTBAscii.Enabled = true;
         }
 
+        private void UpdateTables()
+        {
+            richTBMain.Width = labelTop.Width;
+            richTBMain.Height = labelLeft.Height +2;
+            richTBMain.Update();
+        }
+
+        private void ReadFile()
+        {
+            var data = FileWorker.ReadFileData(openFDialog.FileName);
+
+            string hexData = BitConverter.ToString(data).Replace("-", " ");
+            richTBMain.Text = hexData;
+            richTBAscii.Text = Converter.HexToAscii(hexData, ' ');
+        }
+
         private void applyPatchToolStripMenuItem_Click(object sender, EventArgs e)
         {
             openFileDialogPatch.ShowDialog();
             string path = openFileDialogPatch.FileName;
-            Patch currentPatch = _fileWorker.ReadPatch(path);
+            Patch currentPatch = FileWorker.ReadPatch(path);
             if (currentPatch.IsEmpty())
                 return;
             FormPatch formPatch = new FormPatch
@@ -645,15 +646,12 @@ namespace Hex_Editor
 
         private void SaveFile()
         {
+            if (string.IsNullOrEmpty(_fileName) || !File.Exists(openFDialog.FileName))
+                return;
+
             ResetColor();
-            using (var stream = File.Open(openFDialog.FileName, FileMode.Open))//inefficient
-            {
-                foreach (var instruction in _history)
-                {
-                    stream.Position = instruction.Offset;
-                    stream.WriteByte(byte.Parse(instruction.NewHex, System.Globalization.NumberStyles.HexNumber));
-                }
-            }
+            FileWorker.ApplyPatches(openFDialog.FileName, _history);
+            
             _history.Clear();
         }
 

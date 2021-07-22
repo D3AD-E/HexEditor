@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Hex_Editor
 {
-    internal class Converter
+    public class Converter
     {
         private static int HexToAsciiPosition(string hex)
         {
@@ -21,6 +21,10 @@ namespace Hex_Editor
             StringBuilder sb = new();
             if (separator is null)
             {
+                if (hexString.Length %2 != 0)
+                {
+                    throw new FormatException("Size of hex data must be even");
+                }
                 for (int i = 0; i < hexString.Length; i += 2)
                 {
                     string hex = hexString.Substring(i, 2);
@@ -39,6 +43,10 @@ namespace Hex_Editor
                 int counter = 0;
                 foreach (var hexData in hexArray)
                 {
+                    if(hexData.Length!=2)
+                    {
+                        throw new FormatException("Size of hex cell must be 2");
+                    }
                     int decval = HexToAsciiPosition(hexData);
                     if (counter % 16 == 0 && counter != 0)
                         sb.Append(Environment.NewLine);
@@ -51,7 +59,6 @@ namespace Hex_Editor
 
         public static string AsciiToHex(string asciiString)
         {
-
             string hex = string.Empty;
 
             foreach (var el in asciiString)
@@ -62,9 +69,6 @@ namespace Hex_Editor
             }
 
             return hex;
-
-
-
         }
     }
 }
